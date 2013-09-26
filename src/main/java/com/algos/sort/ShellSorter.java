@@ -9,12 +9,23 @@ import static com.algos.sort.SorterHelper.lesser;
  *        Shell sort address this problem by limiting exchanges.
  */
 public class ShellSorter<T extends Comparable<T>> implements Sorter<T> {
+    private static final int INITIAL_K = 3;
+
     @Override
     public void sort(T[] tableToSort) {
-        int initialStep = new Double(Math.sqrt(tableToSort.length)).intValue();
-        for (int currentStep = initialStep; currentStep > 0; currentStep /= 2) {
+        int initialStep = getInitialStep(tableToSort);
+        for (int currentStep = initialStep; currentStep > 0; currentStep /= INITIAL_K) {
             shiftLeftEveryElementLesserThanPreviousForStepFrom(currentStep, tableToSort);
         }
+    }
+
+    private int getInitialStep(T[] tableToSort) {
+        int h = 1;
+        int size = tableToSort.length;
+        while (h < size / INITIAL_K) {
+            h = h * INITIAL_K + 1;
+        }
+        return h;
     }
 
     private void shiftLeftEveryElementLesserThanPreviousForStepFrom(int currentStep, T[] tableToSort) {
