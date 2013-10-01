@@ -8,19 +8,25 @@ public class BinaryTreeTest {
 
 	@Test
 	public void testGet() throws Exception {
-		BinaryTree<String, String> tree = new BinaryTree<>();
+		BinaryTree<Integer, String> tree = new BinaryTree<>();
 		assertThat(tree.size()).isEqualTo(0);
-		assertThat(tree.get("nawak")).isNull();
+		assertThat(tree.get(42)).isNull();
 
-		tree.put("root", "rootvalue");
+		tree.put(5, "5");
 		assertThat(tree.size()).isEqualTo(1);
-		assertThat(tree.get("nawak")).isNull();
-		assertThat(tree.get("root")).isEqualTo("rootvalue");
+		assertThat(tree.get(42)).isNull();
+		assertThat(tree.get(5)).isEqualTo("5");
 
-		tree.put("sub", "subvalue");
+		tree.put(6, "6");
 		assertThat(tree.size()).isEqualTo(2);
-		assertThat(tree.get("sub")).isEqualTo("subvalue");
+		assertThat(tree.get(6)).isEqualTo("6");
 
-		BinaryTree.print(tree);
+		tree.put(6, "6");
+		tree.put(4, "4");
+		tree.put(3, "3");
+		tree.put(10, "10");
+		tree.put(12, "12");
+		tree.put(9, "9");
+		BinaryTree.BTreePrinter.printTree(tree);
 	}
 }

@@ -1,6 +1,8 @@
 package com.algos.tree;
 
-import com.google.common.base.Strings;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BinaryTree<Key extends Comparable<Key>, Value> {
 
@@ -71,15 +73,88 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
 		return x;
 	}
 
-	public static void print(BinaryTree tree) {
-		int spaces = tree.size();
-		BinaryTree.Node root = tree.root;
+	static class BTreePrinter {
 
-		System.out.println(Strings.padStart(root.val.toString(), spaces, ' '));
+		public static void printTree(BinaryTree tree) {
+			printNode(tree.root);
+		}
 
+		public static void printNode(BinaryTree.Node root) {
+			int maxLevel = BTreePrinter.maxLevel(root);
+			printNodeInternal(Collections.singletonList(root), 1, maxLevel);
+		}
 
-		System.out.println(Strings.padStart("/", spaces - 1, ' '));
-		System.out.println(Strings.padStart("\\", spaces + 1, ' '));
+		private static void printNodeInternal(List<BinaryTree.Node> nodes, int level, int maxLevel) {
+			if (nodes.isEmpty() || BTreePrinter.isAllElementsNull(nodes))
+				return;
+
+			int floor = maxLevel - level;
+			int edgeLines = (int) Math.pow(2, (Math.max(floor - 1, 0)));
+			int firstSpaces = (int) Math.pow(2, (floor)) - 1;
+			int betweenSpaces = (int) Math.pow(2, (floor + 1)) - 1;
+
+			printWhitespaces(firstSpaces);
+
+			List<BinaryTree.Node> newNodes = new ArrayList<>();
+			for (BinaryTree.Node node : nodes) {
+				if (node != null) {
+					System.out.print(node.key);
+					newNodes.add(node.left);
+					newNodes.add(node.right);
+				} else {
+					newNodes.add(null);
+					newNodes.add(null);
+					System.out.print(" ");
+				}
+
+				printWhitespaces(betweenSpaces);
+			}
+			System.out.println("");
+
+			for (int i = 1; i <= edgeLines; i++) {
+				for (BinaryTree.Node node : nodes) {
+					printWhitespaces(firstSpaces - i);
+					if (node == null) {
+						printWhitespaces(edgeLines + edgeLines + i + 1);
+						continue;
+					}
+
+					if (node.left != null)
+						System.out.print("/");
+					else
+						printWhitespaces(1);
+
+					printWhitespaces(i + i - 1);
+
+					if (node.right != null)
+						System.out.print("\\");
+					else
+						printWhitespaces(1);
+
+					printWhitespaces(edgeLines + edgeLines - i);
+				}
+
+				System.out.println("");
+			}
+
+			printNodeInternal(newNodes, level + 1, maxLevel);
+		}
+
+		private static void printWhitespaces(int count) {
+			for (int i = 0; i < count; i++)
+				System.out.print(" ");
+		}
+
+		private static int maxLevel(BinaryTree.Node node) {
+			if (node == null)
+				return 0;
+
+			return Math.max(maxLevel(node.left), maxLevel(node.right)) + 1;
+		}
+
+		private static <T> boolean isAllElementsNull(List<T> list) {
+			return list.stream().filter(t -> t != null).count() == 0;
+		}
 	}
 
 	// See page 399.
