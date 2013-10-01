@@ -29,4 +29,23 @@ public class BinaryTreeTest {
 		tree.put(9, "9");
 		BinaryTree.BTreePrinter.printTree(tree);
 	}
+
+	@Test
+	public void testWalking() throws Exception {
+
+		BinaryTree<Integer, String> tree = testTree();
+		TreeWalking.breadth(tree, n -> System.out.println(n.key), System.out::println);
+	}
+
+	private static BinaryTree<Integer, String> testTree() {
+		BinaryTree<Integer, String> tree = new BinaryTree<>();
+		tree.put(5, "5");
+		tree.put(6, "6");
+		tree.put(4, "4");
+		tree.put(3, "3");
+		tree.put(10, "10");
+		tree.put(12, "12");
+		tree.put(9, "9");
+		return tree;
+	}
 }

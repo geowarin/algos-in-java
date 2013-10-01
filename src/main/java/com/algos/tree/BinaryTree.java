@@ -6,12 +6,12 @@ import java.util.List;
 
 public class BinaryTree<Key extends Comparable<Key>, Value> {
 
-	private Node root; // root of BST
+	Node root; // root of BST
 
-	private class Node {
-		private Key key; // key
-		private Value val; // associated value
-		private Node left, right; // links to subtrees
+	class Node {
+		Key key; // key
+		Value val; // associated value
+		Node left, right; // links to subtrees
 		private int N; // # nodes in subtree rooted here
 
 		public Node(Key key, Value val, int N) {
