@@ -19,6 +19,11 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
 			this.val = val;
 			this.N = N;
 		}
+
+		@Override
+		public String toString() {
+			return "Node{key=" + key + ", val=" + val + '}';
+		}
 	}
 
 	public int size() {
