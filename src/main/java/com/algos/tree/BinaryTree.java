@@ -109,7 +109,7 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
 				} else {
 					newNodes.add(null);
 					newNodes.add(null);
-					System.out.print(" ");
+					System.out.print("n");
 				}
 
 				printWhitespaces(betweenSpaces);
