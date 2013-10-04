@@ -23,43 +23,43 @@ public class TopDownMergeSorter<T extends Comparable<T>> implements Sorter<T> {
         int midIndex = lowIndex + ((hiIndex - lowIndex) / 2);
         merge(lowIndex, midIndex);
         merge(midIndex + 1, hiIndex);
-        sortMerge(lowIndex, midIndex, hiIndex);
+        mergeSortedParts(lowIndex, midIndex, hiIndex);
     }
 
-    private void sortMerge(int lowIndex, int midIndex, int hiIndex) {
+    private void mergeSortedParts(int lowIndex, int midIndex, int hiIndex) {
         T[] copyOfMergingPart = Arrays.copyOfRange(tableToSort, lowIndex, hiIndex + 1);
         int midIndexInCopyTable = midIndex - lowIndex;
         int hiIndexInCopyTable = hiIndex - lowIndex;
 
-        int firstPartIndex = 0, secondPartIndex = midIndexInCopyTable + 1;
+        int firstMergingPartIndex = 0, secondMergingPartIndex = midIndexInCopyTable + 1;
         boolean firstPartOver = false, secondPartOver = false;
         for (int i = 0; i < copyOfMergingPart.length; i++) {
             if (firstPartOver) {
-//                System.out.println("first part over : " + (hiIndexInCopyTable - secondPartIndex + 1));
-                copyAll(copyOfMergingPart, lowIndex + i, secondPartIndex, hiIndexInCopyTable);
+//                System.out.println("first part over : " + (hiIndexInCopyTable - secondMergingPartIndex + 1));
+                copyAll(copyOfMergingPart, lowIndex + i, secondMergingPartIndex, hiIndexInCopyTable);
                 break;
             } else if (secondPartOver) {
-//                System.out.println("second part over : " + (midIndexInCopyTable - firstPartIndex + 1));
-                copyAll(copyOfMergingPart, lowIndex + i, firstPartIndex, midIndexInCopyTable);
+//                System.out.println("second part over : " + (midIndexInCopyTable - firstMergingPartIndex + 1));
+                copyAll(copyOfMergingPart, lowIndex + i, firstMergingPartIndex, midIndexInCopyTable);
                 break;
             }
-            T currentElementOfFirstPart = copyOfMergingPart[firstPartIndex];
-            T currentElementOfSecondPart = copyOfMergingPart[secondPartIndex];
+            T currentElementOfFirstPart = copyOfMergingPart[firstMergingPartIndex];
+            T currentElementOfSecondPart = copyOfMergingPart[secondMergingPartIndex];
             if (SorterHelper.lesser(currentElementOfFirstPart, currentElementOfSecondPart)) {
                 tableToSort[lowIndex + i] = currentElementOfFirstPart;
-                firstPartOver = firstPartIndex++ >= midIndexInCopyTable;
+                firstPartOver = firstMergingPartIndex++ >= midIndexInCopyTable;
             } else {
                 tableToSort[lowIndex + i] = currentElementOfSecondPart;
-                secondPartOver = secondPartIndex++ >= hiIndexInCopyTable;
+                secondPartOver = secondMergingPartIndex++ >= hiIndexInCopyTable;
             }
         }
     }
 
-    private void copyAll(T[] copyOfMergingPart, int from, int lowIndex, int hiIndex) {
-        int limit = from + hiIndex - lowIndex;
+    private void copyAll(T[] copyOfMergingPart, int from, int fromCopyIndex, int toCopyIndex) {
+        int limit = from + toCopyIndex - fromCopyIndex;
         int index = from;
         while (index <= limit) {
-            tableToSort[index++] = copyOfMergingPart[lowIndex++];
+            tableToSort[index++] = copyOfMergingPart[fromCopyIndex++];
         }
     }
 }
