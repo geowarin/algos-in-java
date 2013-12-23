@@ -50,7 +50,7 @@ public class LinearProbingHashSymbolTable<X, Y> extends HashSymbolTable<X, Y> {
             keys[keyIndex] = null;
             values[keyIndex] = null;
             numberOfPairsInTable--;
-            for (int i = keyIndex + 1; keys[i] != null; i = (i + 1) % hashSize) {
+            for (int i = (keyIndex + 1) % hashSize; keys[i] != null; i = (i + 1) % hashSize) {
                 numberOfPairsInTable--;
                 X keyToPut = keys[i];
                 Y valueToPut = values[i];
