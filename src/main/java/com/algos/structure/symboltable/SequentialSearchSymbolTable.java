@@ -1,6 +1,6 @@
 package com.algos.structure.symboltable;
 
-import com.algos.structure.Node;
+import com.algos.structure.simple.Node;
 
 import java.util.Iterator;
 

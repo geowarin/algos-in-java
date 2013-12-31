@@ -1,4 +1,4 @@
-package com.algos.structure;
+package com.algos.structure.simple;
 
 public class Node<T> {
     private T value;
