@@ -11,13 +11,10 @@ import java.io.IOException;
  * @author Sennen
  * @since 30/12/13 22:58
  */
-public class SimpleUndirectedGraphTest {
-
-    private UndirectedGraph graph;
-
+public class SimpleUndirectedGraphTest extends GraphTestCase {
     @Before
     public void setUp() throws IOException {
-        graph = UndirectedGraphParser.parse(SimpleUndirectedGraphTest.class.getResource("simpleGraph.txt").getPath());
+        super.setUp("simpleGraph.txt");
     }
 
     @Test
