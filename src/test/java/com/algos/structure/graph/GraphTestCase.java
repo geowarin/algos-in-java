@@ -9,10 +9,10 @@ import java.io.IOException;
  * @since 02/01/14 00:14
  */
 public class GraphTestCase {
-    protected UndirectedGraph graph;
+    protected UndirectedGraph<Integer> graph;
 
     protected void setUp(String fileName) throws IOException {
-        graph = UndirectedGraphParser.parse(GraphTestCase.class.getResource(fileName).getPath());
+        graph = UndirectedGraphParser.parseToIntegerGraph(GraphTestCase.class.getResource(fileName).getPath());
     }
 
     protected PathFinderAssertion assertThat(PathFinder pathFinder) {

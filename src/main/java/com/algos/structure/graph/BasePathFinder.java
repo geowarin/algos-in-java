@@ -8,13 +8,13 @@ import com.algos.structure.simple.Stack;
  * @since 01/01/14 23:43
  */
 public abstract class BasePathFinder implements PathFinder {
-    protected UndirectedGraph graph;
+    protected UndirectedGraph<Integer> graph;
     protected int sourceVertex;
     protected boolean[] marked;
     protected int[] reachableFrom;
 
     @Override
-    public void init(UndirectedGraph graph, int sourceVertex) {
+    public void init(UndirectedGraph<Integer> graph, int sourceVertex) {
         this.graph = graph;
         this.sourceVertex = sourceVertex;
         marked = new boolean[graph.getNumberOfVertices()];

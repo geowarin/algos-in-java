@@ -5,12 +5,12 @@ package com.algos.structure.graph;
  * @since 01/01/14 13:08
  */
 public class DepthFirstGraphSearch implements GraphSearch {
-    private UndirectedGraph graph;
+    private UndirectedGraph<Integer> graph;
     private boolean[] marked;
     private int count;
 
     @Override
-    public void init(UndirectedGraph graph, int sourceVertex) {
+    public void init(UndirectedGraph<Integer> graph, int sourceVertex) {
         this.graph = graph;
         marked = new boolean[graph.getNumberOfVertices()];
         searchDepthFirst(sourceVertex);

@@ -11,7 +11,7 @@ public interface GraphSearch {
      * @param graph Graph to explore
      * @param sourceVertex Vertex where exploration begins
      */
-    void init(UndirectedGraph graph, int sourceVertex);
+    void init(UndirectedGraph<Integer> graph, int sourceVertex);
 
     /**
      * Shows if a vertex is connected to main vertex.

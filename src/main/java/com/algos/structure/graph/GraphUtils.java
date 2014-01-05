@@ -7,7 +7,7 @@ import java.util.function.BinaryOperator;
  * @since 25/12/13 22:37
  */
 public abstract class GraphUtils {
-    public static int getDegree(UndirectedGraph graph, int vertex) {
+    public static int getDegree(UndirectedGraph<Integer> graph, int vertex) {
         int degree = 0;
         for (Integer adjacentVertex : graph.getAdjacentVertices(vertex)) {
             degree++;
@@ -15,19 +15,19 @@ public abstract class GraphUtils {
         return degree;
     }
 
-    public static int getMaxDegree(UndirectedGraph graph) {
+    public static int getMaxDegree(UndirectedGraph<Integer> graph) {
         return getExtremeDegree(graph, Math::max);
     }
 
-    public static int getMinDegree(UndirectedGraph graph) {
+    public static int getMinDegree(UndirectedGraph<Integer> graph) {
         return getExtremeDegree(graph, Math::min);
     }
 
-    public static int getAverageDegree(UndirectedGraph graph) {
+    public static int getAverageDegree(UndirectedGraph<Integer> graph) {
         return 2 * graph.getNumberOfVertices() / graph.getNumberOfEdges();
     }
 
-    public static int getNumberOfSelfLoops(UndirectedGraph graph) {
+    public static int getNumberOfSelfLoops(UndirectedGraph<Integer> graph) {
         int numberOfSelfLoops = 0;
         for (int vertex = 0; vertex < graph.getNumberOfVertices(); vertex++) {
             for (int adjacentVertex : graph.getAdjacentVertices(vertex)) {
@@ -39,7 +39,7 @@ public abstract class GraphUtils {
         return numberOfSelfLoops;
     }
 
-    private static int getExtremeDegree(UndirectedGraph graph, BinaryOperator<Integer> operator) {
+    private static int getExtremeDegree(UndirectedGraph<Integer> graph, BinaryOperator<Integer> operator) {
         Integer extremeDegree = null;
         for (int vertex = 0; vertex < graph.getNumberOfVertices(); vertex++) {
             int degree = getDegree(graph, vertex);

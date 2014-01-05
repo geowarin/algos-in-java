@@ -14,7 +14,7 @@ public class DepthFirstPathFinderTest extends GraphTestCase {
 
     @Before
     public void setUp() throws IOException {
-        super.setUp("tinyCG.txt");
+        super.setUp("tinyG.txt");
         pathFinder = new DepthFirstPathFinder();
         pathFinder.init(graph, 0);
     }

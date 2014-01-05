@@ -5,7 +5,7 @@ package com.algos.structure.graph;
  * @since 01/01/14 16:25
  */
 public interface PathFinder {
-    void init(UndirectedGraph graph, int sourceVertex);
+    void init(UndirectedGraph<Integer> graph, int sourceVertex);
 
     boolean hasPathTo(int vertex);
 
