@@ -13,19 +13,19 @@ import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Sennen
- * @since 21/10/13 01:00
+ * @since 25/10/13 01:32
  */
-public class SeparateChainingHashSymbolTableTest extends SymbolTableTestCase {
-    private static final Logger logger = LoggerFactory.getLogger(SeparateChainingHashSymbolTableTest.class);
+public class LinearProbingHashSymbolTableTest extends SymbolTableTestCase {
+    private static final Logger logger = LoggerFactory.getLogger(LinearProbingHashSymbolTableTest.class);
 
     @Before
     public void setUp() {
-        super.setUp(new SeparateChainingHashSymbolTable<>());
+        super.setUp(getSymbolTable());
     }
 
     @Test
     public void testIsEmpty() throws Exception {
-        assertTrue("Should be empty", new SeparateChainingHashSymbolTable<String, Integer>().isEmpty());
+        assertTrue("Should be empty", getSymbolTable().isEmpty());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class SeparateChainingHashSymbolTableTest extends SymbolTableTestCase {
         assertEquals(6, nameToAgeHashSymbolTable.size());
         nameToAgeHashSymbolTable.delete(CHRISTOPHE);
         assertEquals(5, nameToAgeHashSymbolTable.size());
-        nameToAgeHashSymbolTable.delete(ANYTHING);
+        nameToAgeHashSymbolTable.delete("ANYTHING");
         assertEquals(5, nameToAgeHashSymbolTable.size());
     }
 
@@ -57,29 +57,33 @@ public class SeparateChainingHashSymbolTableTest extends SymbolTableTestCase {
     @Test
     public void testIterator() throws Exception {
         assertThatIterator(nameToAgeHashSymbolTable.keys().iterator())
-                .nextEquals(SENNEN)
-                .nextEquals(NINI)
-                .nextEquals(CHRISTOPHE)
-                .nextEquals(FATOU)
                 .nextEquals(KEYO)
                 .nextEquals(JO)
+                .nextEquals(NINI)
+                .nextEquals(SENNEN)
+                .nextEquals(CHRISTOPHE)
+                .nextEquals(FATOU)
                 .hasNoNext();
     }
 
     @Test
     public void testTinySearch() throws Exception {
         Map.Entry<String, Integer> maxFrequency =
-                FrequencyCounterUtil.getMaxFrequencyCount("tinyTale.txt", new SeparateChainingHashSymbolTable<>(),
-                                                          logger);
-        assertEquals("it", maxFrequency.getKey());
+                FrequencyCounterUtil.getMaxFrequencyCount("tinyTale.txt", getSymbolTable(), logger);
+        assertEquals("of", maxFrequency.getKey());
         assertEquals(10, maxFrequency.getValue().intValue());
     }
 
     @Test(timeout = 5000)
     public void testMediumSearch() throws Exception {
         Map.Entry<String, Integer> maxFrequency =
-                FrequencyCounterUtil.getMaxFrequencyCount("tale.txt", new SeparateChainingHashSymbolTable<>(), 8, logger);
+                FrequencyCounterUtil.getMaxFrequencyCount("tale.txt", getSymbolTable(), 8, logger);
         assertEquals("business", maxFrequency.getKey());
         assertEquals(122, maxFrequency.getValue().intValue());
+    }
+
+    private LinearProbingHashSymbolTable<String, Integer> getSymbolTable() {
+        return new LinearProbingHashSymbolTable<>((TableSupplier<String>) String[]::new,
+                                                  (TableSupplier<Integer>) Integer[]::new);
     }
 }

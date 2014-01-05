@@ -9,8 +9,7 @@ import java.util.Set;
  * @author Sennen
  * @since 21/10/13 00:46
  */
-public class SeparateChainingHashSymbolTable<X, Y> implements SymbolTable<X, Y> {
-    private final int hashSize;
+public class SeparateChainingHashSymbolTable<X, Y> extends HashSymbolTable<X, Y> {
     private int size;
     private final SequentialSearchSymbolTable<X, Y>[] symbolTables;
     private final Set<Integer> usedHashes = new LinkedHashSet<>();
@@ -20,13 +19,9 @@ public class SeparateChainingHashSymbolTable<X, Y> implements SymbolTable<X, Y> 
     }
 
     public SeparateChainingHashSymbolTable(int hashSize) {
-        this.hashSize = hashSize;
+        super(hashSize);
         symbolTables = (SequentialSearchSymbolTable<X, Y>[]) new SequentialSearchSymbolTable[hashSize];
         Arrays.setAll(symbolTables, value -> new SequentialSearchSymbolTable<X, Y>());
-    }
-
-    private int hash(X key) {
-        return (key.hashCode() & 0x7fffffff) % hashSize;
     }
 
     @Override

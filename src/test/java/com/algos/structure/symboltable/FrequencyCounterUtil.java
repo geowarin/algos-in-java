@@ -1,5 +1,7 @@
 package com.algos.structure.symboltable;
 
+import org.slf4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FrequencyCounterUtil {
-
     public static final String EMPTY = "";
 
     public static Map.Entry<String, Integer> findHighestFrequencyCount(SymbolTable<String, Integer> table) {
@@ -26,20 +27,19 @@ public class FrequencyCounterUtil {
     }
 
     public static Map.Entry<String, Integer>
-    getMaxFrequencyCount(String fileName, SymbolTableSupplier<SymbolTable<String, Integer>, String, Integer> supplier)
+    getMaxFrequencyCount(String fileName, SymbolTable<String, Integer> symbolTable, Logger logger)
             throws Exception {
-        return getMaxFrequencyCount(fileName, supplier, 1);
+        return getMaxFrequencyCount(fileName, symbolTable, 1, logger);
     }
 
     public static Map.Entry<String, Integer>
-    getMaxFrequencyCount(String fileName, SymbolTableSupplier<SymbolTable<String, Integer>, String, Integer> supplier,
-                         int minWordSize)
+    getMaxFrequencyCount(String fileName, SymbolTable<String, Integer> symbolTable, int minWordSize, Logger logger)
             throws Exception {
-        SymbolTable<String, Integer> table = supplier.get();
         long init = new Date().getTime();
-        FrequencyCounterUtil.loadSymbolTable(table, fileName, minWordSize);
-        Map.Entry<String, Integer> maxFrequency = FrequencyCounterUtil.findHighestFrequencyCount(table);
-        System.out.println("How long ? " + (new Date().getTime() - init) + "\t" + table.size());
+        FrequencyCounterUtil.loadSymbolTable(symbolTable, fileName, minWordSize);
+        Map.Entry<String, Integer> maxFrequency = FrequencyCounterUtil.findHighestFrequencyCount(symbolTable);
+        logger.debug("How long ? " + (new Date().getTime() - init) + "\t\t For which size ? " +
+                     symbolTable.size());
         return maxFrequency;
     }
 

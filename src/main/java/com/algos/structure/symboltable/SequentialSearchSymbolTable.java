@@ -1,6 +1,6 @@
 package com.algos.structure.symboltable;
 
-import com.algos.structure.Node;
+import com.algos.structure.simple.Node;
 
 import java.util.Iterator;
 
@@ -67,26 +67,21 @@ public class SequentialSearchSymbolTable<X, Y> implements SymbolTable<X, Y> {
 
     @Override
     public Iterable<X> keys() {
-        return new Iterable<X>() {
+        return () -> new Iterator<X>() {
+            private Node<SymbolTableEntry<X, Y>> node = first;
+            private int index = 0;
+
             @Override
-            public Iterator<X> iterator() {
-                return new Iterator<X>() {
-                    private Node<SymbolTableEntry<X, Y>> node = first;
-                    private int index = 0;
+            public boolean hasNext() {
+                return index < size;
+            }
 
-                    @Override
-                    public boolean hasNext() {
-                        return index < size;
-                    }
-
-                    @Override
-                    public X next() {
-                        index++;
-                        Node<SymbolTableEntry<X, Y>> node = this.node;
-                        this.node = this.node.next();
-                        return node.getValue().getKey();
-                    }
-                };
+            @Override
+            public X next() {
+                index++;
+                Node<SymbolTableEntry<X, Y>> node = this.node;
+                this.node = this.node.next();
+                return node.getValue().getKey();
             }
         };
     }
