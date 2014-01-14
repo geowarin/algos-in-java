@@ -18,6 +18,7 @@ public class BreadthFirstPathFinder extends BasePathFinder {
             marked[vertexToExplore] = true;
             for (Integer adjacentVertex : graph.getAdjacentVertices(vertexToExplore)) {
                 if(!marked[adjacentVertex]) {
+                    marked[adjacentVertex] = true;
                     reachableFrom[adjacentVertex] = vertexToExplore;
                     verticesToExplore.enqueue(adjacentVertex);
                 }

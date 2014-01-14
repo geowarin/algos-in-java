@@ -19,6 +19,12 @@ public class GraphTestCase {
         return new PathFinderAssertion(pathFinder);
     }
 
+    public static UndirectedSymbolGraph<String> routes() throws IOException {
+        return UndirectedGraphParser.parseToStringGraph(
+                ExtensibleUndirectedGraphTest.class.getResource("routes.txt").getPath(),
+                " ");
+    }
+
     protected static class PathFinderAssertion {
         private final PathFinder pathFinder;
 

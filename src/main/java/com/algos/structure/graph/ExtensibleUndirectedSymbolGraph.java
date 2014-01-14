@@ -29,6 +29,21 @@ public class ExtensibleUndirectedSymbolGraph<T> implements UndirectedSymbolGraph
     }
 
     @Override
+    public UndirectedGraph<Integer> getUnderlyingGraph() {
+        return underlyingGraph;
+    }
+
+    @Override
+    public int getIndex(T vertex) {
+        return indicesByVertex.get(vertex);
+    }
+
+    @Override
+    public T getVertex(int index) {
+        return vertices[index];
+    }
+
+    @Override
     public int getNumberOfVertices() {
         return numberOfVertices;
     }

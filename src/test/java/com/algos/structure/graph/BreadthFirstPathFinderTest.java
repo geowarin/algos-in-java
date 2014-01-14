@@ -1,5 +1,6 @@
 package com.algos.structure.graph;
 
+import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,5 +25,14 @@ public class BreadthFirstPathFinderTest extends GraphTestCase {
         assertThat(pathFinder).pathToIsNull(6);
         assertThat(pathFinder).pathToEquals(5, new int[]{0, 5});
         assertThat(pathFinder).pathToEquals(0, new int[]{0});
+    }
+
+    @Test
+    public void testPath2WaysWithDifferentSizesToSameVertexNotAdjacentToSource() throws Exception {
+        pathFinder.init(
+                UndirectedGraphParser.parseToIntegerGraph(
+                        GraphTestCase.class.getResource("graph2WaysWithDifferentSizes.txt").getPath()),
+                0);
+        assertThat(pathFinder).pathToEquals(4, new int[]{0, 3, 4});
     }
 }

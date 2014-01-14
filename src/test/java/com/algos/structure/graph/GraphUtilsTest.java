@@ -44,4 +44,9 @@ public class GraphUtilsTest extends GraphTestCase {
         TestCase.assertEquals(1, GraphUtils.getNumberOfSelfLoops(graph));
 
     }
+
+    @Test
+    public void testSeparationDegree() throws Exception {
+        TestCase.assertEquals(GraphUtils.getSeparationDegree(routes(), "JFK", "HOU"), 2);
+    }
 }

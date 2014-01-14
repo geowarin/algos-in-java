@@ -16,10 +16,7 @@ public class ExtensibleUndirectedSymbolGraphTest {
 
     @Before
     public void setUp() throws IOException {
-        this.graph =
-                UndirectedGraphParser.parseToStringGraph(
-                        ExtensibleUndirectedGraphTest.class.getResource("routes.txt").getPath(),
-                        " ");
+        this.graph = GraphTestCase.routes();
     }
 
     @Test

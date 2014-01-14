@@ -83,7 +83,7 @@ public class ExtensibleQueue<T> implements Queue<T> {
         }
 
         if (elements.length > 10 && elements[elements.length - 10] == null) {
-            return Arrays.copyOf(elements, elements.length - 10);
+            return Arrays.copyOf(elements, elements.length - 9);
         }
         return elements;
     }

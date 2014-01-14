@@ -6,4 +6,10 @@ package com.algos.structure.graph;
  */
 public interface UndirectedSymbolGraph<T> extends UndirectedGraph<T> {
     boolean contains(T key);
+
+    UndirectedGraph<Integer> getUnderlyingGraph();
+
+    int getIndex(T vertex);
+
+    T getVertex(int index);
 }
