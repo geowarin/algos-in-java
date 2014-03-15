@@ -7,17 +7,33 @@ package com.algos.sort;
  */
 public class ThreeWayQuickSorter<T extends Comparable<T>> implements Sorter<T> {
 
-    // TODO The same than quick sort
-    // single left to right pass through with 3 pointers,
-    // lt such that a[lo..lt-1] is less than v,
-    // i such that a[lt..i-1] are equal to v,
-    // gt such that a[gt+1..hi] is greater than v. a[i..gt] are not yet examined.
-    // Starting with i=lo, we process a[i] using the 3-way comparison given by Comparable :
-    // a[i] less than v: exchange a[lt] with a[i] and increment both lt and i.
-    // a[i] greater than v: exchange a[gt] with a[i], and decrement gt.
-    // a[i] equal to v: increment i
+    private T[] tableToSort;
+
     @Override
     public void sort(T[] tableToSort) {
+        this.tableToSort = tableToSort;
+        sort(0, tableToSort.length -1);
+    }
 
+    private void sort(int lowIndex, int highIndex) {
+        if(highIndex<=lowIndex) {
+            return;
+        }
+        int lowTracker = lowIndex;
+        int tracker = lowIndex + 1;
+        int highTracker = highIndex;
+        T partitionKey = tableToSort[lowIndex];
+        while(tracker <= highTracker) {
+            T trackedElement = tableToSort[tracker];
+            if (SorterHelper.lesser(trackedElement, partitionKey)) {
+                SorterHelper.exchange(tableToSort, lowTracker++, tracker++);
+            } else if (SorterHelper.greater(trackedElement, partitionKey)) {
+                SorterHelper.exchange(tableToSort, tracker, highTracker--);
+            } else {
+                tracker++;
+            }
+        }
+        sort(lowIndex, lowTracker - 1);
+        sort(highTracker + 1, highIndex);
     }
 }
