@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class QuickInsertionSorter<T extends Comparable<T>> extends AbstractQuickSorter<T> {
 
     public static final int TABLE_PART_SIZE_FOR_INSERTION_SORT = 3;
+    private final InsertionSorter<T> insertionSorter = new InsertionSorter<>();
 
     @Override
     protected boolean check(int loIndex, int hiIndex) {
@@ -24,7 +25,6 @@ public class QuickInsertionSorter<T extends Comparable<T>> extends AbstractQuick
         }
         int hiCopyLimit = hiIndex >= tableToSort.length ? tableToSort.length : hiIndex + 1;
         T[] copyFromLoToHiIndex = Arrays.copyOfRange(tableToSort, loIndex, hiCopyLimit);
-        InsertionSorter<T> insertionSorter = new InsertionSorter<>();
         insertionSorter.sort(copyFromLoToHiIndex);
         copyAll(copyFromLoToHiIndex, loIndex);
     }
