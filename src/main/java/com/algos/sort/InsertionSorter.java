@@ -9,22 +9,25 @@ package com.algos.sort;
 import static com.algos.sort.SorterHelper.lesser;
 
 public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
+    private T[] tableToSort;
+
     @Override
     public void sort(T[] tableToSort) {
+        this.tableToSort = tableToSort;
         for (int position = 0; position < tableToSort.length; position++) {
-            shiftLeftEveryElementLesserThanPreviousFrom(position, tableToSort);
+            shiftLeftEveryElementLesserThanPreviousFrom(position);
         }
     }
 
-    private void shiftLeftEveryElementLesserThanPreviousFrom(int index, T[] tableToSort) {
+    private void shiftLeftEveryElementLesserThanPreviousFrom(int index) {
         for (int currentIndex = index;
              currentIndex > 0 && lesser(tableToSort[currentIndex], tableToSort[currentIndex - 1]);
              currentIndex--) {
-            shiftLeftElement(currentIndex, tableToSort);
+            shiftLeftElement(currentIndex);
         }
     }
 
-    private void shiftLeftElement(int currentIndex, T[] tableToSort) {
+    private void shiftLeftElement(int currentIndex) {
         T element = tableToSort[currentIndex];
         tableToSort[currentIndex] = tableToSort[currentIndex - 1];
         tableToSort[currentIndex - 1] = element;
