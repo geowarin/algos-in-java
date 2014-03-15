@@ -1,5 +1,7 @@
 package com.algos.sort;
 
+import java.util.Random;
+
 /**
  * @author Sennen
  * @since 09/10/13 00:29
@@ -9,13 +11,23 @@ public abstract class AbstractQuickSorter<T extends Comparable<T>> implements So
 
     @Override
     public void sort(T[] tableToSort) {
-        this.tableToSort = tableToSort;
+        this.tableToSort = shuffle(tableToSort);
         sort(0, tableToSort.length - 1);
     }
 
     protected abstract boolean check(int loIndex, int hiIndex);
 
     protected abstract void handleNoPartitionCase(int loIndex, int hiIndex);
+
+    private T[] shuffle(T[] tableToSort) {
+        Random rnd = new Random();
+        for (int i = tableToSort.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            SorterHelper.exchange(tableToSort, index, i);
+        }
+        return tableToSort;
+    }
 
     private void sort(int loIndex, int hiIndex) {
         if (check(loIndex, hiIndex)) {
@@ -35,7 +47,7 @@ public abstract class AbstractQuickSorter<T extends Comparable<T>> implements So
         while (leftScanIndex <= rightScanIndex) {
             if (leftScanStopped && rightScanStopped) {
                 leftScanStopped = rightScanStopped = false;
-                exchange(leftScanIndex, rightScanIndex);
+                SorterHelper.exchange(tableToSort, leftScanIndex, rightScanIndex);
                 continue;
             }
             if (SorterHelper.lesser(tableToSort[rightScanIndex], partitioningItem)) {
@@ -51,14 +63,8 @@ public abstract class AbstractQuickSorter<T extends Comparable<T>> implements So
                 rightScanIndex--;
             }
         }
-        exchange(loIndex, rightScanIndex);
+        SorterHelper.exchange(tableToSort, loIndex, rightScanIndex);
 
         return rightScanIndex;
-    }
-
-    private void exchange(int i, int j) {
-        T tempElement = tableToSort[j];
-        tableToSort[j] = tableToSort[i];
-        tableToSort[i] = tempElement;
     }
 }
