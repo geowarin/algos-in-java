@@ -4,7 +4,7 @@ package com.algos.sort;
  * @author Sennen
  * @since 27/09/13 01:34
  */
-public class TopDownMergeSorter<T extends Comparable<T>> extends MergeSorter<T> {
+public class TopDownMergeSorter<T extends Comparable<T>> implements Sorter<T> {
 
     private T[] tableToSort;
 
@@ -21,6 +21,6 @@ public class TopDownMergeSorter<T extends Comparable<T>> extends MergeSorter<T> 
         int midIndex = lowIndex + ((hiIndex - lowIndex) / 2);
         merge(lowIndex, midIndex);
         merge(midIndex + 1, hiIndex);
-        mergeSortedParts(tableToSort, lowIndex, midIndex, hiIndex);
+        SorterHelper.mergeSortedParts(tableToSort, lowIndex, midIndex, hiIndex);
     }
 }
