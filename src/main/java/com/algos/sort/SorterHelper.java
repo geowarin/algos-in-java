@@ -9,11 +9,21 @@ import java.util.Arrays;
  * @since 26/09/13 22:10
  */
 public class SorterHelper {
-  static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
-    return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) < 0;
-  }
+    static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
+        return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) < 0;
+    }
 
-    protected static <T extends Comparable<T>> void mergeSortedParts(T[] tableToSort, int lowIndex, int midIndex, int hiIndex) {
+
+    public static <T> void exchange(T[] tableToSort, int index, int index1) {
+        if (index == index1) {
+            return;
+        }
+        T tempElement = tableToSort[index1];
+        tableToSort[index1] = tableToSort[index];
+        tableToSort[index] = tempElement;
+    }
+
+    static <T extends Comparable<T>> void mergeSortedParts(T[] tableToSort, int lowIndex, int midIndex, int hiIndex) {
         T[] copyOfMergingPart = Arrays.copyOfRange(tableToSort, lowIndex, hiIndex + 1);
         int midIndexInCopyTable = midIndex - lowIndex;
         int hiIndexInCopyTable = hiIndex - lowIndex;
@@ -22,11 +32,9 @@ public class SorterHelper {
         boolean firstPartOver = false, secondPartOver = false;
         for (int i = 0; i < copyOfMergingPart.length; i++) {
             if (firstPartOver) {
-//                System.out.println("first part over : " + (hiIndexInCopyTable - secondMergingPartIndex + 1));
                 copyAll(tableToSort, copyOfMergingPart, lowIndex + i, secondMergingPartIndex, hiIndexInCopyTable);
                 break;
             } else if (secondPartOver) {
-//                System.out.println("second part over : " + (midIndexInCopyTable - firstMergingPartIndex + 1));
                 copyAll(tableToSort, copyOfMergingPart, lowIndex + i, firstMergingPartIndex, midIndexInCopyTable);
                 break;
             }
@@ -48,6 +56,27 @@ public class SorterHelper {
         int index = from;
         while (index <= limit) {
             tableToSort[index++] = copyOfMergingPart[fromCopyIndex++];
+        }
+    }
+
+    public static <T extends Comparable<T>> void swim(T[] heapToRepair, int position) {
+        while (position > 1 && lesser(heapToRepair[position / 2], heapToRepair[position])) {
+            exchange(heapToRepair, position, position / 2);
+            position /= 2;
+        }
+    }
+
+    public static <T extends Comparable<T>> void sink(T[] heapToRepair, int position, int length) {
+        while (2 * position < length) {
+            int j = 2 * position;
+            if (j < length && lesser(heapToRepair[j], heapToRepair[j + 1])) {
+                j++;
+            }
+            if (!lesser(heapToRepair[position], heapToRepair[j])) {
+                break;
+            }
+            exchange(heapToRepair, position, j);
+            position = j;
         }
     }
 }
