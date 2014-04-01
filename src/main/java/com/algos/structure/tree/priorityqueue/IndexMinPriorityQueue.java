@@ -1,4 +1,4 @@
-package com.algos.structure.tree;
+package com.algos.structure.tree.priorityqueue;
 
 import com.algos.sort.SorterHelper;
 import com.algos.structure.symboltable.TableSupplier;
@@ -74,9 +74,9 @@ public class IndexMinPriorityQueue<T extends Comparable<T>> {
     }
 
     private void adjustSpaceIfNeeded(int index) {
-        priorities = QueueUtils.adjustSpaceIfNeeded(priorities, Integer[]::new, length);
-        items = QueueUtils.adjustSpaceIfNeeded(items, tableSupplier, length);
-        prioritiesIndices = QueueUtils.adjustSpaceIfNeeded(prioritiesIndices, Integer[]::new, index + 1);
+        priorities = Queues.adjustSpaceIfNeeded(priorities, Integer[]::new, length);
+        items = Queues.adjustSpaceIfNeeded(items, tableSupplier, length);
+        prioritiesIndices = Queues.adjustSpaceIfNeeded(prioritiesIndices, Integer[]::new, index + 1);
     }
 
     private void swim(int index, T item) {

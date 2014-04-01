@@ -1,4 +1,4 @@
-package com.algos.structure.tree;
+package com.algos.structure.tree.priorityqueue;
 
 import com.algos.structure.symboltable.TableSupplier;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Date: 16/03/2014
  * Time: 19:44
  */
-public class QueueUtils {
+public class Queues {
 
     public static <T> T[] adjustSpaceIfNeeded(T[] items, TableSupplier<T> tableSupplier, int length) {
         if (items == null) {

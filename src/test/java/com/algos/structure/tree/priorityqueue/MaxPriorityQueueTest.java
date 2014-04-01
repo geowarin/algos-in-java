@@ -1,10 +1,10 @@
-package com.algos.structure.simple;
+package com.algos.structure.tree.priorityqueue;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-import com.algos.structure.tree.MaxPriorityQueue;
+import com.algos.structure.tree.priorityqueue.MaxPriorityQueue;
 import org.junit.Before;
 import org.junit.Test;
 

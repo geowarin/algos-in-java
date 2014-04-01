@@ -1,4 +1,4 @@
-package com.algos.structure.tree;
+package com.algos.structure.tree.priorityqueue;
 
 /**
  * User: sennen

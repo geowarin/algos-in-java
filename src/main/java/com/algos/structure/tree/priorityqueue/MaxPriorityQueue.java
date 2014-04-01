@@ -1,9 +1,7 @@
-package com.algos.structure.tree;
+package com.algos.structure.tree.priorityqueue;
 
 import com.algos.sort.SorterHelper;
 import com.algos.structure.symboltable.TableSupplier;
-
-import java.util.Arrays;
 
 /**
  * User: sennen
@@ -20,7 +18,7 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
     }
 
     public void offer(T item) {
-        items = QueueUtils.adjustSpaceIfNeeded(items, tableSupplier, length);
+        items = Queues.adjustSpaceIfNeeded(items, tableSupplier, length);
         items[++length] = item;
         SorterHelper.swim(items, length);
     }
