@@ -10,7 +10,7 @@ import java.util.Arrays;
  * Date: 15/03/2014
  * Time: 22:52
  */
-public class MaxPriorityQueue<T extends Comparable<T>> implements PriorityQueue<T> {
+public class MaxPriorityQueue<T extends Comparable<T>> {
     private final TableSupplier<T> tableSupplier;
     private T[] items;
     private int length = 0;
@@ -19,19 +19,16 @@ public class MaxPriorityQueue<T extends Comparable<T>> implements PriorityQueue<
         this.tableSupplier = tableSupplier;
     }
 
-    @Override
     public void offer(T item) {
-        adjustSpaceIfNeeded();
+        items = QueueUtils.adjustSpaceIfNeeded(items, tableSupplier, length);
         items[++length] = item;
         SorterHelper.swim(items, length);
     }
 
-    @Override
     public T peek() {
         return items[1];
     }
 
-    @Override
     public T poll() {
         T max = peek();
         SorterHelper.exchange(items, 1, length--);
@@ -40,24 +37,11 @@ public class MaxPriorityQueue<T extends Comparable<T>> implements PriorityQueue<
         return max;
     }
 
-    @Override
     public boolean isEmpty() {
         return length == 0;
     }
 
-    @Override
     public int size() {
         return length;
-    }
-
-    private void adjustSpaceIfNeeded() {
-        if (items == null) {
-            items = tableSupplier.get(16);
-            return;
-        }
-        int availableSpace = items.length;
-        if (length == availableSpace / 4) {
-            items = Arrays.copyOf(items, availableSpace * 2);
-        }
     }
 }

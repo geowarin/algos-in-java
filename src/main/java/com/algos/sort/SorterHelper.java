@@ -9,10 +9,13 @@ import java.util.Arrays;
  * @since 26/09/13 22:10
  */
 public class SorterHelper {
-    static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
+    public static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
         return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) < 0;
     }
 
+    public static <T extends Comparable<T>> boolean greater(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
+        return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) > 0;
+    }
 
     public static <T> void exchange(T[] tableToSort, int index, int index1) {
         if (index == index1) {
@@ -67,12 +70,12 @@ public class SorterHelper {
     }
 
     public static <T extends Comparable<T>> void sink(T[] heapToRepair, int position, int length) {
-        while (2 * position < length) {
+        while (2 * position <= length) {
             int j = 2 * position;
             if (j < length && lesser(heapToRepair[j], heapToRepair[j + 1])) {
                 j++;
             }
-            if (!lesser(heapToRepair[position], heapToRepair[j])) {
+            if (greater(heapToRepair[position], heapToRepair[j])) {
                 break;
             }
             exchange(heapToRepair, position, j);

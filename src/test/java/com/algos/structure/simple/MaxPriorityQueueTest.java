@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
+import com.algos.structure.tree.MaxPriorityQueue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,27 +19,39 @@ public class MaxPriorityQueueTest {
     @Before
     public void setUp() {
         priorityQueue = new MaxPriorityQueue<>(Character[]::new);
-        priorityQueue.insert('A');
-        priorityQueue.insert('O');
-        priorityQueue.insert('T');
-        priorityQueue.insert('S');
-        priorityQueue.insert('N');
-        priorityQueue.insert('R');
-        priorityQueue.insert('P');
+        priorityQueue.offer('A');
+        priorityQueue.offer('O');
+        priorityQueue.offer('T');
+        priorityQueue.offer('S');
+        priorityQueue.offer('N');
+        priorityQueue.offer('R');
+        priorityQueue.offer('P');
     }
 
     @Test
     public void testItemsAreOrdered() throws Exception {
-        assertEquals('T', priorityQueue.max().charValue());
-        assertEquals('T', priorityQueue.delMax().charValue());
-        assertEquals('S', priorityQueue.delMax().charValue());
-        priorityQueue.insert('K');
-        assertEquals('R', priorityQueue.delMax().charValue());
-        assertEquals('P', priorityQueue.delMax().charValue());
-        assertEquals('O', priorityQueue.delMax().charValue());
-        assertEquals('N', priorityQueue.delMax().charValue());
-        assertEquals('K', priorityQueue.delMax().charValue());
-        assertEquals('A', priorityQueue.delMax().charValue());
+        assertEquals('T', priorityQueue.peek().charValue());
+        assertEquals('T', priorityQueue.poll().charValue());
+        assertEquals('S', priorityQueue.poll().charValue());
+        assertEquals('R', priorityQueue.poll().charValue());
+        assertEquals('P', priorityQueue.poll().charValue());
+        assertEquals('O', priorityQueue.poll().charValue());
+        assertEquals('N', priorityQueue.poll().charValue());
+        assertEquals('A', priorityQueue.poll().charValue());
+    }
+
+    @Test
+    public void testItemsStillOrderedWithInsertionBetweenSeveralPolls() throws Exception {
+        assertEquals('T', priorityQueue.peek().charValue());
+        assertEquals('T', priorityQueue.poll().charValue());
+        assertEquals('S', priorityQueue.poll().charValue());
+        priorityQueue.offer('K');
+        assertEquals('R', priorityQueue.poll().charValue());
+        assertEquals('P', priorityQueue.poll().charValue());
+        assertEquals('O', priorityQueue.poll().charValue());
+        assertEquals('N', priorityQueue.poll().charValue());
+        assertEquals('K', priorityQueue.poll().charValue());
+        assertEquals('A', priorityQueue.poll().charValue());
     }
 
     @Test
@@ -49,19 +62,19 @@ public class MaxPriorityQueueTest {
     @Test
     public void testIsEmpty() throws Exception {
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertFalse(priorityQueue.isEmpty());
-        priorityQueue.delMax();
+        priorityQueue.poll();
         assertTrue(priorityQueue.isEmpty());
     }
 }
