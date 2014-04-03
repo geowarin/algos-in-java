@@ -16,11 +16,11 @@ public class SorterTestCase {
 
     static void testSorter(Sorter<Character> sorter, Logger logger) {
         Character[] actualTable = {'M', 'E', 'R', 'G', 'E', 'S', 'O', 'R', 'T', 'E', 'X', 'A', 'M', 'P', 'L', 'E'};
-        sorter.sort(actualTable);
-        print(actualTable, logger);
+        Character[] actualTableSorted = sorter.sort(actualTable);
+        print(actualTableSorted, logger);
         assertArrayEquals(
                 new Character[]{'A', 'E', 'E', 'E', 'E', 'G', 'L', 'M', 'M', 'O', 'P', 'R', 'R', 'S', 'T', 'X'},
-                actualTable);
+                actualTableSorted);
     }
 
     private static <T> void print(T[] tableToPrint, Logger logger) {

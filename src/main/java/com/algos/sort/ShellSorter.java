@@ -12,11 +12,12 @@ public class ShellSorter<T extends Comparable<T>> implements Sorter<T> {
     private static final int INITIAL_K = 3;
 
     @Override
-    public void sort(T[] tableToSort) {
+    public T[] sort(T[] tableToSort) {
         int initialStep = getInitialStep(tableToSort);
         for (int currentStep = initialStep; currentStep > 0; currentStep /= INITIAL_K) {
             shiftLeftEveryElementLesserThanPreviousForStepFrom(currentStep, tableToSort);
         }
+        return tableToSort;
     }
 
     private int getInitialStep(T[] tableToSort) {

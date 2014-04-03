@@ -9,9 +9,10 @@ public class TopDownMergeSorter<T extends Comparable<T>> implements Sorter<T> {
     private T[] tableToSort;
 
     @Override
-    public void sort(T[] tableToSort) {
+    public T[] sort(T[] tableToSort) {
         this.tableToSort = tableToSort;
         merge(0, tableToSort.length - 1);
+        return tableToSort;
     }
 
     private void merge(int lowIndex, int hiIndex) {

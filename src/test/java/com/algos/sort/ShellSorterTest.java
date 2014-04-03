@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
  * @since 27/09/13 00:59
  */
 public class ShellSorterTest extends SorterTestCase {
-    private static final Logger logger = LoggerFactory.getLogger(ShellSorterTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShellSorterTest.class);
 
     @Test
     public void test() throws Exception {
-        testSorter(new ShellSorter<>(), logger);
+        testSorter(new ShellSorter<>(), LOGGER);
     }
 }

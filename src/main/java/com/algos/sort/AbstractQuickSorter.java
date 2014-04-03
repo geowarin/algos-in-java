@@ -8,9 +8,10 @@ public abstract class AbstractQuickSorter<T extends Comparable<T>> implements So
     protected T[] tableToSort;
 
     @Override
-    public void sort(T[] tableToSort) {
+    public T[] sort(T[] tableToSort) {
         this.tableToSort = tableToSort;
         sort(0, tableToSort.length - 1);
+        return tableToSort;
     }
 
     protected abstract boolean check(int loIndex, int hiIndex);
