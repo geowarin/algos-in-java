@@ -53,11 +53,6 @@ public class SeparateChainingHashSymbolTable<X, Y> extends HashSymbolTable<X, Y>
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
     public int size() {
         return size;
     }

@@ -7,9 +7,13 @@ public interface SymbolTable<X,Y> {
 
     void delete(X key);
 
-    boolean contains(X key);
+    default boolean contains(X key) {
+        return get(key) != null;
+    }
 
-    boolean isEmpty();
+    default boolean isEmpty() {
+        return size() == 0;
+    }
 
     int size();
 

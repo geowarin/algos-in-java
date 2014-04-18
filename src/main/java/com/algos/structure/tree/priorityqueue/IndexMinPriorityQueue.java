@@ -85,7 +85,7 @@ public class IndexMinPriorityQueue<T extends Comparable<T>> {
         prioritiesIndices[index] = length;
 
         int position = length;
-        while (position > 1 && SorterHelper.greater(priorities[position / 2], priorities[position])) {
+        while (position > 1 && SorterHelper.strictlyGreater(priorities[position / 2], priorities[position])) {
             SorterHelper.exchange(priorities, position, position / 2);
             SorterHelper.exchange(items, position, position / 2);
             prioritiesIndices[priorities[position]] = position;
@@ -99,10 +99,10 @@ public class IndexMinPriorityQueue<T extends Comparable<T>> {
 
         while (2 * position <= length) {
             int j = 2 * position;
-            if (j < length && SorterHelper.greater(priorities[j], priorities[j + 1])) {
+            if (j < length && SorterHelper.strictlyGreater(priorities[j], priorities[j + 1])) {
                 j++;
             }
-            if (SorterHelper.lesser(priorities[position], priorities[j])) {
+            if (SorterHelper.strictlyLesser(priorities[position], priorities[j])) {
                 break;
             }
             SorterHelper.exchange(priorities, position, j);

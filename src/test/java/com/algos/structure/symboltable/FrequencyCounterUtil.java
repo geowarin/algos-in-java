@@ -43,7 +43,7 @@ public class FrequencyCounterUtil {
         return maxFrequency;
     }
 
-    private static void loadSymbolTable(SymbolTable<String, Integer> table, String fileName, int minLength)
+    public static void loadSymbolTable(SymbolTable<String, Integer> table, String fileName, int minLength)
             throws Exception {
         BufferedReader reader =
                 new BufferedReader(new FileReader(new File(FrequencyCounterUtil.class.getResource(fileName).toURI())));

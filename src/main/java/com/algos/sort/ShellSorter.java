@@ -1,6 +1,6 @@
 package com.algos.sort;
 
-import static com.algos.sort.SorterHelper.lesser;
+import static com.algos.sort.SorterHelper.strictlyLesser;
 
 /**
  * @author Sennen
@@ -37,7 +37,7 @@ public class ShellSorter<T extends Comparable<T>> implements Sorter<T> {
 
     private void shiftLeftEveryElementLesserThanPreviousFrom(int index, int step, T[] tableToSort) {
         for (int currentIndex = index;
-             currentIndex > 0 && lesser(tableToSort[currentIndex], tableToSort[currentIndex - step]);
+             currentIndex > 0 && strictlyLesser(tableToSort[currentIndex], tableToSort[currentIndex - step]);
              currentIndex -= step) {
             shiftLeftElement(currentIndex, step, tableToSort);
         }

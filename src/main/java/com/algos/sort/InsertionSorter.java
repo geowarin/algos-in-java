@@ -6,7 +6,7 @@ package com.algos.sort;
  * This is the sorting algorithm to choose when number of inversions are low in the table to sort.
  */
 
-import static com.algos.sort.SorterHelper.lesser;
+import static com.algos.sort.SorterHelper.strictlyLesser;
 
 public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
     private T[] tableToSort;
@@ -22,7 +22,7 @@ public class InsertionSorter<T extends Comparable<T>> implements Sorter<T> {
 
     private void shiftLeftEveryElementLesserThanPreviousFrom(int index) {
         for (int currentIndex = index;
-             currentIndex > 0 && lesser(tableToSort[currentIndex], tableToSort[currentIndex - 1]);
+             currentIndex > 0 && strictlyLesser(tableToSort[currentIndex], tableToSort[currentIndex - 1]);
              currentIndex--) {
             SorterHelper.exchange(tableToSort, currentIndex, currentIndex - 1);
         }

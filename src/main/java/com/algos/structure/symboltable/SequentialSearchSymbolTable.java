@@ -51,16 +51,6 @@ public class SequentialSearchSymbolTable<X, Y> implements SymbolTable<X, Y> {
     }
 
     @Override
-    public boolean contains(X key) {
-        return get(key) != null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
-    @Override
     public int size() {
         return size;
     }
