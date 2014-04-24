@@ -24,10 +24,11 @@ public class WeightedQuickUnionConnector extends QuickUnionConnector {
         }
         if (sizes[nodeRoot] < sizes[otherNode]) {
             nodeIdentifiers[nodeRoot] = otherNodeRoot;
-            sizes[otherNodeRoot] += sizes[nodeRoot];
+        } else if (sizes[nodeRoot] == sizes[otherNode]) {
+            nodeIdentifiers[otherNodeRoot] = nodeRoot;
+            sizes[nodeRoot]++;
         } else {
             nodeIdentifiers[otherNodeRoot] = nodeRoot;
-            sizes[nodeRoot] += sizes[otherNodeRoot];
         }
         this.numberOfComponents--;
     }
