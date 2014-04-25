@@ -39,10 +39,10 @@ public abstract class AbstractQuickSorter<T extends Comparable<T>> implements So
                 exchange(leftScanIndex, rightScanIndex);
                 continue;
             }
-            if (SorterHelper.lesser(tableToSort[rightScanIndex], partitioningItem)) {
+            if (SorterHelper.strictlyLesser(tableToSort[rightScanIndex], partitioningItem)) {
                 rightScanStopped = true;
             }
-            if (SorterHelper.lesser(partitioningItem, tableToSort[leftScanIndex])) {
+            if (SorterHelper.strictlyLesser(partitioningItem, tableToSort[leftScanIndex])) {
                 leftScanStopped = true;
             }
             if (!leftScanStopped) {

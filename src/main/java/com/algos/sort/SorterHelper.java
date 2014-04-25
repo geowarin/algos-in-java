@@ -9,12 +9,22 @@ import java.util.Arrays;
  * @since 26/09/13 22:10
  */
 public class SorterHelper {
-    public static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
-        return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) < 0;
+    public static <T extends Comparable<T>> boolean strictlyLesser(T elementSupposedToBeLesser, T elementSupposedToBeGreater) {
+        return Ordering.natural().compare(elementSupposedToBeLesser, elementSupposedToBeGreater) < 0;
+    }
+
+    public static <T extends Comparable<T>> boolean strictlyGreater(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
+        return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) > 0;
+    }
+
+    public static <T extends Comparable<T>> boolean lesser(T elementSupposedToBeLesser, T elementSupposedToBeGreater) {
+        return strictlyLesser(elementSupposedToBeLesser, elementSupposedToBeGreater) ||
+                elementSupposedToBeGreater.equals(elementSupposedToBeLesser);
     }
 
     public static <T extends Comparable<T>> boolean greater(T elementSupposedToBeGreater, T elementSupposedToBeLesser) {
-        return Ordering.natural().compare(elementSupposedToBeGreater, elementSupposedToBeLesser) > 0;
+        return strictlyGreater(elementSupposedToBeGreater, elementSupposedToBeLesser) ||
+                elementSupposedToBeGreater.equals(elementSupposedToBeLesser);
     }
 
     public static <T> void exchange(T[] tableToSort, int index, int index1) {
@@ -26,7 +36,7 @@ public class SorterHelper {
         tableToSort[index] = tempElement;
     }
 
-    static <T extends Comparable<T>> void mergeSortedParts(T[] tableToSort, int lowIndex, int midIndex, int hiIndex) {
+    public static <T extends Comparable<T>> void mergeSortedParts(T[] tableToSort, int lowIndex, int midIndex, int hiIndex) {
         T[] copyOfMergingPart = Arrays.copyOfRange(tableToSort, lowIndex, hiIndex + 1);
         int midIndexInCopyTable = midIndex - lowIndex;
         int hiIndexInCopyTable = hiIndex - lowIndex;
@@ -43,7 +53,7 @@ public class SorterHelper {
             }
             T currentElementOfFirstPart = copyOfMergingPart[firstMergingPartIndex];
             T currentElementOfSecondPart = copyOfMergingPart[secondMergingPartIndex];
-            if (lesser(currentElementOfFirstPart, currentElementOfSecondPart)) {
+            if (strictlyLesser(currentElementOfFirstPart, currentElementOfSecondPart)) {
                 tableToSort[lowIndex + i] = currentElementOfFirstPart;
                 firstPartOver = firstMergingPartIndex++ >= midIndexInCopyTable;
             } else {
@@ -63,7 +73,7 @@ public class SorterHelper {
     }
 
     public static <T extends Comparable<T>> void swim(T[] heapToRepair, int position) {
-        while (position > 1 && lesser(heapToRepair[position / 2], heapToRepair[position])) {
+        while (position > 1 && strictlyLesser(heapToRepair[position / 2], heapToRepair[position])) {
             exchange(heapToRepair, position, position / 2);
             position /= 2;
         }
@@ -72,10 +82,10 @@ public class SorterHelper {
     public static <T extends Comparable<T>> void sink(T[] heapToRepair, int position, int length) {
         while (2 * position <= length) {
             int j = 2 * position;
-            if (j < length && lesser(heapToRepair[j], heapToRepair[j + 1])) {
+            if (j < length && strictlyLesser(heapToRepair[j], heapToRepair[j + 1])) {
                 j++;
             }
-            if (greater(heapToRepair[position], heapToRepair[j])) {
+            if (strictlyGreater(heapToRepair[position], heapToRepair[j])) {
                 break;
             }
             exchange(heapToRepair, position, j);
