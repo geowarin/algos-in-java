@@ -4,12 +4,12 @@ package com.algos.structure.graph;
  * @author Sennen
  * @since 24/12/13 22:21
  */
-public interface UndirectedGraph {
+public interface UndirectedGraph<T> {
     int getNumberOfVertices();
 
     int getNumberOfEdges();
 
-    void addEdge(int vertex, int otherVertex);
+    void addEdge(T vertex, T otherVertex);
 
-    Iterable<Integer> getAdjacentVertices(int vertex);
+    Iterable<T> getAdjacentVertices(T vertex);
 }

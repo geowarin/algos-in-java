@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author Sennen
  * @since 29/12/13 22:05
  */
-public class SimpleUndirectedGraph implements UndirectedGraph {
+public class SimpleUndirectedGraph implements UndirectedGraph<Integer> {
     private final int numberOfVertices;
     private final Bag<Integer>[] adjacencyLists;
     private int numberOfEdges;
@@ -31,19 +31,19 @@ public class SimpleUndirectedGraph implements UndirectedGraph {
     }
 
     @Override
-    public void addEdge(int vertex, int otherVertex) {
+    public void addEdge(Integer vertex, Integer otherVertex) {
         if(adjacencyLists[vertex].contains(otherVertex)) {
             return;
         }
         adjacencyLists[vertex].add(otherVertex);
-        if (vertex != otherVertex) {
+        if (!vertex.equals(otherVertex)) {
             adjacencyLists[otherVertex].add(vertex);
         }
         numberOfEdges++;
     }
 
     @Override
-    public Iterable<Integer> getAdjacentVertices(int vertex) {
+    public Iterable<Integer> getAdjacentVertices(Integer vertex) {
         return adjacencyLists[vertex];
     }
 

@@ -15,7 +15,7 @@ public class SequentialSearchSymbolTableTest {
 
     @Test
     public void testIsEmpty() throws Exception {
-        assertTrue("Should be empty", new SequentialSearchSymbolTable<String,Integer>().isEmpty());
+        assertTrue("Should be empty", new SequentialSearchSymbolTable<String, Integer>().isEmpty());
     }
 
     @Test

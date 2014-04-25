@@ -10,13 +10,10 @@ import java.io.IOException;
  * @author Sennen
  * @since 31/12/13 16:11
  */
-public class GraphUtilsTest {
-
-    private UndirectedGraph graph;
-
+public class GraphUtilsTest extends GraphTestCase {
     @Before
     public void setUp() throws IOException {
-        graph = UndirectedGraphParser.parse(SimpleUndirectedGraphTest.class.getResource("simpleGraph.txt").getPath());
+        super.setUp("simpleGraph.txt");
     }
 
     @Test
@@ -46,5 +43,10 @@ public class GraphUtilsTest {
         graph.addEdge(0, 0);
         TestCase.assertEquals(1, GraphUtils.getNumberOfSelfLoops(graph));
 
+    }
+
+    @Test
+    public void testSeparationDegree() throws Exception {
+        TestCase.assertEquals(GraphUtils.getSeparationDegree(routes(), "JFK", "HOU"), 2);
     }
 }
